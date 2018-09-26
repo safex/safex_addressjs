@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const wg = require('../index');
 const { poor_mans_kdf } = require('../lib/Keccak');
 
-describe('wallet-generator', () => {
+describe('safex-addressjs', () => {
   it('can generate wallet keys with random entropy', () => {
     const seed = wg.sc_reduce32(wg.rand_32());
     const keys = wg.create_address(seed);
