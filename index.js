@@ -1,11 +1,12 @@
 const cnUtil = require('./lib/cnUtil');
-const { sc_reduce32, rand_32, create_address, pubkeys_to_string, address_checksum } = cnUtil;
+const { sc_reduce32, rand_32, create_address, pubkeys_to_string, address_checksum, sec_key_to_pub } = cnUtil;
 
 module.exports = {
     sc_reduce32,
     rand_32,
     create_address,
     pubkeys_to_string,
+    sec_key_to_pub,
     address_checksum
 };
 
