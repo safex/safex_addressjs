@@ -12,16 +12,16 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
   },
-	"keywords": [
-		"safex",
-		"wallet",
-		"generator",
-		"address",
-		"crypto"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:safex/safex_addressjs.git"
-	},
+  "keywords": [
+    "safex",
+    "wallet",
+    "generator",
+    "address",
+    "crypto"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:safex/safex_addressjs.git"
+  },
   "dependencies": {}
 }

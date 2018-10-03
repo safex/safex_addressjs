@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+const sa = require('../index');
+
+let format = '$address,$spend,$view';
+
+const arg = process.argv[2];
+if (arg === '-h' || arg === '--help') {
+  console.log(`
+generate-address ${require('../package').version}
+
+Generate a safex wallet keys and print them to stdout.
+Keys will be printed as csv, in the following (default) format:
+
+   ${format}
+   
+   ("$spend" and "$view" are private keys)
+
+Usage: generate-address [format] [-h|--help]
+
+Parameters:
+  [format]           Alternate format. You can also leave out some of the keys if you want.
+  -h, --help         This screen
+`);
+  process.exit(0);
+}
+
+if (arg) {
+  format = arg;
+}
+
+const seed = sa.sc_reduce32(sa.rand_32());
+const keys = sa.create_address(seed);
+
+let out = format;
+out = out.replace(/\$address/, keys.public_addr);
+out = out.replace(/\$spend/, keys.spend.sec);
+out = out.replace(/\$view/, keys.view.sec);
+
+console.log(out);
