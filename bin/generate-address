@@ -2,39 +2,102 @@
 
 const sa = require('../index');
 
-let format = '$address,$spend,$view';
+const DEFAULT_CONFIG = {
+  format: '$address,$spend,$view',
+  count: 1,
+};
 
-const arg = process.argv[2];
-if (arg === '-h' || arg === '--help') {
+const config = parseArgv(process.argv);
+
+for (let i = 0; i < Math.max(0, config.count); i++) {
+  console.log(generateAddressLine(config));
+}
+
+// *********************************************************************************************************************
+
+function generateAddressLine(config) {
+  const seed = sa.sc_reduce32(sa.rand_32());
+  const keys = sa.create_address(seed);
+  
+  let out = config.format;
+  out = out.replace(/\$address/, keys.public_addr);
+  out = out.replace(/\$spend/, keys.spend.sec);
+  out = out.replace(/\$view/, keys.view.sec);
+  
+  return out;
+}
+
+function printHelp() {
   console.log(`
 generate-address ${require('../package').version}
 
 Generate a safex wallet keys and print them to stdout.
 Keys will be printed as csv, in the following (default) format:
 
-   ${format}
+   ${DEFAULT_CONFIG.format}
    
    ("$spend" and "$view" are private keys)
 
-Usage: generate-address [format] [-h|--help]
+Usage: generate-address [-h|--help] [-f|--format FORMAT] [-c|--count COUNT]
 
 Parameters:
-  [format]           Alternate format. You can also leave out some of the keys if you want.
-  -h, --help         This screen
+  --format, -f [FORMAT]      Alternate format. You can also leave out some of the keys if you want.
+  --count, -c [COUNT]        Generate multiple addresses, each one in a different rows. Defaults to ${DEFAULT_CONFIG.count}.
+  -h, --help                 This screen
 `);
-  process.exit(0);
 }
 
-if (arg) {
-  format = arg;
+function parseArgv(argv) {
+  const config = {...DEFAULT_CONFIG};
+  
+  let wait = null;
+  
+  for (let i = 2; i < argv.length; i++) {
+    const arg = argv[i];
+    
+    if (arg === '-h' || arg === '--help') {
+      printHelp();
+      process.exit(0);
+    }
+    
+    if (arg === '-f' || arg === '--format') {
+      wait = 'format';
+      continue;
+    }
+  
+    if (arg === '-c' || arg === '--count') {
+      wait = 'count';
+      continue;
+    }
+    
+    if (wait) {
+      // This is the value we've been waiting
+      if (typeof config[wait] === 'number') {
+        config[wait] = Number(arg);
+        if (isNaN(config[wait])) {
+          console.error(`Expected a number for "${wait}", instead got ${arg}`);
+          process.exit(1);
+        }
+      } else {
+        config[wait] = arg;
+      }
+      
+      wait = null;
+      continue;
+    }
+  
+    console.error(`Invalid argument: ${arg}. Run with -h for help`);
+    process.exit(1);
+  }
+  
+  if (wait) {
+    console.error(`Missing value for "${wait}". Run with -h for help`);
+    process.exit(1);
+  }
+  
+  return config;
 }
 
-const seed = sa.sc_reduce32(sa.rand_32());
-const keys = sa.create_address(seed);
-
-let out = format;
-out = out.replace(/\$address/, keys.public_addr);
-out = out.replace(/\$spend/, keys.spend.sec);
-out = out.replace(/\$view/, keys.view.sec);
-
-console.log(out);
+function badArgExit(arg) {
+  
+}
