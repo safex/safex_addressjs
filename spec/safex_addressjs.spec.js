@@ -39,4 +39,12 @@ describe('safex-addressjs', () => {
       'Safex611rcxAUEYu3tg4yuQ88MWfg3ASuYeCr64kAeFkaMwhYyFTvpA7Pws5MjacwQffynDQhbiUAEHPTvvFS8eVaZ9sRiLfuuN3V'
     );
   });
+  
+  it('can verify address checksum', () => {
+    expect(wg.verify_checksum('SafexizbEHdGwdJjvtNrcQAf6FZBUSunfSDRbowxDNNGBPhfc6DzVeacEzxKNt3rFYEkyHLN7JNsWLHTM58DPA33iepZ4uqFFom9EXgCJJA36x4tk')).to.be.true;
+    
+    expect(wg.verify_checksum('SafexizbEHdGwdJjvtNrcQAf6FZBUSunfSDRbowxDNNGBPhfc6DzVeacEzxKNt3rFYEkyHLN7JNsWLHTM58DPA33iepZ4uqFFom9EXgCJJA36x4tx')).to.be.false;
+    expect(wg.verify_checksum('SafeyizbEHdGwdJjvtNrcQAf6FZBUSunfSDRbowxDNNGBPhfc6DzVeacEzxKNt3rFYEkyHLN7JNsWLHTM58DPA33iepZ4uqFFom9EXgCJJA36x4tk')).to.be.false;
+    expect(wg.verify_checksum('SafeyizbEHdGwdJjvtNrcQAf6FZBUSunfSDRbowxDNNGBPhfc6DzVeacEzxKNt4rFYEkyHLN7JNsWLHTM58DPA33iepZ4uqFFom9EXgCJJA36x4tk')).to.be.false;
+  });
 });
