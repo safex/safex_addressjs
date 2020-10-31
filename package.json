@@ -9,8 +9,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.3",
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "prettier": "^2.1.2"
   },
   "keywords": [
     "safex",

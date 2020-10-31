@@ -64,3 +64,4 @@ fabric.properties
 
 /monero-wallet-generator
 /node_modules
+cnUtil.spec.js
