@@ -12,7 +12,8 @@ module.exports = {
     decode_address,
     verify_checksum,
     sign_message,
-    check_signature
+    check_signature,
+    keccak256
 };
 
 // Bind the exports to cnUtil
