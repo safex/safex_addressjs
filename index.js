@@ -1,5 +1,5 @@
 const cnUtil = require('./lib/cnUtil');
-const { keccak256, check_signature, sign_message, sc_reduce32, rand_32, create_address, pubkeys_to_string, address_checksum, sec_key_to_pub, structure_keys, decode_address, verify_checksum } = cnUtil;
+const { check_signature, sign_message, sc_reduce32, rand_32, create_address, pubkeys_to_string, address_checksum, sec_key_to_pub, structure_keys, decode_address, verify_checksum } = cnUtil;
 
 module.exports = {
     sc_reduce32,
@@ -12,8 +12,7 @@ module.exports = {
     decode_address,
     verify_checksum,
     sign_message,
-    check_signature,
-    keccak256
+    check_signature
 };
 
 // Bind the exports to cnUtil
