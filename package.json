@@ -27,6 +27,7 @@
     "url": "git@github.com:safex/safex_addressjs.git"
   },
   "dependencies": {
-    "keccak256": "^1.0.1"
+    "keccak256": "^1.0.1",
+    "system-sleep": "^1.3.7"
   }
 }
